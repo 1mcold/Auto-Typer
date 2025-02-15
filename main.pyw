@@ -22,7 +22,7 @@ class AutoTyperApp:
         self.root = root
         self.root.title("Auto Typer")
         self.root.geometry("800x600")
-        self.root.iconphoto(False, tk.PhotoImage(file="icon.png"))
+        self.root.iconphoto(False, tk.PhotoImage(file="icon/icon.png"))
 
         custom_font = ("Rubik Light", 13)
         backgroundcolor = "#D09C74"
