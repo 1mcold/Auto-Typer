@@ -35,11 +35,16 @@ class AutoTyperApp:
                                    selectbackground=selectbackgroundcolor, selectforeground=selectforegroundcolor)
         self.text_widget.pack(expand=True, fill=tk.BOTH)
         
-        self.root.bind("<Control-b>", self.start_typing)
+        self.is_typing = False
+        self.thread = None
+        
+        self.root.bind("<Control-b>", self.toggle_typing)
     
     def type_text(self, text):
         time.sleep(3)
         for char in text:
+            if not self.is_typing:
+                break
             if char == " ":
                 pyautogui.press("space")
             elif char == "\t":
@@ -50,9 +55,14 @@ class AutoTyperApp:
                 pyautogui.write(char, interval=0.01)  
             time.sleep(0.06)
     
-    def start_typing(self, event=None):
-        text = self.text_widget.get("1.0", tk.END).rstrip()  # Убираем лишние пустые строки
-        threading.Thread(target=self.type_text, args=(text,), daemon=True).start()
+    def toggle_typing(self, event=None):
+        if self.is_typing:
+            self.is_typing = False
+        else:
+            self.is_typing = True
+            text = self.text_widget.get("1.0", tk.END).rstrip()
+            self.thread = threading.Thread(target=self.type_text, args=(text,), daemon=True)
+            self.thread.start()
 
 if __name__ == "__main__":
     root = tk.Tk()
