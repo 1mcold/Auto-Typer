@@ -4,6 +4,8 @@
 + Python 3.x
 + pyautogui
 + tkinter
+### How to use
+### We have an input field where we enter text, press the *CTRL+B* key combination and select the area where you want it to be filled with this text.
 ```bash
 pip install pyautogui
 pip install tkinter
